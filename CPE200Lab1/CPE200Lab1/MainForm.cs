@@ -18,7 +18,30 @@ namespace CPE200Lab1
         private bool isAfterEqual;
         private string firstOperand;
         private string operate;
+        private string checksomething;
+        private double memo = 0;
+        private string mem = "";
+        private bool idAfterpush;
+        //private string Nbtn;
+       
 
+        private CalculatorEngine engine;
+
+        private void Mbtn(object sender, EventArgs e)
+        {
+            string MBT;
+            mem = lblDisplay.Text;
+                
+                MBT = ((Button)sender).Text;
+
+            if (MBT == "MS") memo = Convert.ToDouble(mem);
+            else if (MBT == "MC") memo = 0;
+            else if (MBT == "MR") lblDisplay.Text = memo.ToString();
+            else if (MBT == "M+") memo = memo + Convert.ToDouble(mem);
+            else if (MBT == "M-") memo = memo - Convert.ToDouble(mem);
+
+            isAfterEqual = true;
+        }
         private void resetAll()
         {
             lblDisplay.Text = "0";
@@ -30,6 +53,7 @@ namespace CPE200Lab1
 
         private string calculate(string operate, string firstOperand, string secondOperand, int maxOutputSize = 8)
         {
+            checksomething = secondOperand;
             switch(operate)
             {
                 case "+":
@@ -60,17 +84,22 @@ namespace CPE200Lab1
                         return result.ToString("N" + remainLength);
                     }
                     break;
+
                 case "%":
+                    secondOperand = ((Convert.ToDouble(firstOperand) / 100) * Convert.ToDouble(secondOperand)).ToString();
                     //your code here
                     break;
+                    //return (Convert.ToDouble(firstOperand) % Convert.ToDouble(secondOperand)).ToString();
+
             }
             return "E";
         }
+            
 
         public MainForm()
         {
             InitializeComponent();
-
+            engine = new CalculatorEngine();
             resetAll();
         }
 
@@ -99,23 +128,32 @@ namespace CPE200Lab1
                 lblDisplay.Text = "";
             }
             lblDisplay.Text += digit;
+            
             isAfterOperater = false;
         }
 
         private void btnOperator_Click(object sender, EventArgs e)
         {
+            string secondOperand = lblDisplay.Text;
+            string op = ((Button)sender).Text;
+            if(op=="%") secondOperand = ((Convert.ToDouble(firstOperand)/100) * Convert.ToDouble(secondOperand)).ToString();
+            //string secondOperand = lblDisplay.Text;
             if (lblDisplay.Text is "Error")
             {
                 return;
             }
-            if(firstOperand != null)
+            if (isAfterEqual)
+            {
+                secondOperand = checksomething;
+            }
+            if (secondOperand != "0")
             {
                 if (lblDisplay.Text is "Error")
                 {
                     return;
                 }
-                string secondOperand = lblDisplay.Text;
-                string result = calculate(operate, firstOperand, secondOperand);
+                //string secondOperand = lblDisplay.Text;
+                string result = engine.calculate(operate, firstOperand, secondOperand);
                 if (result is "E" || result.Length > 8)
                 {
                     lblDisplay.Text = "Error";
@@ -125,7 +163,9 @@ namespace CPE200Lab1
                     lblDisplay.Text = result;
                 }
                 isAfterEqual = true;
-
+                // secondOperand = "0";
+                firstOperand = result;
+                
             }
             if (isAfterOperater)
             {
@@ -143,6 +183,8 @@ namespace CPE200Lab1
                     isAfterOperater = true;
                     break;
                 case "%":
+                    firstOperand = lblDisplay.Text;
+                    isAfterOperater = true;
                     // your code here
                     break;
             }
@@ -151,12 +193,17 @@ namespace CPE200Lab1
 
         private void btnEqual_Click(object sender, EventArgs e)
         {
+            string secondOperand = lblDisplay.Text;
             if (lblDisplay.Text is "Error")
             {
                 return;
             }
-            string secondOperand = lblDisplay.Text;
-            string result = calculate(operate, firstOperand, secondOperand);
+            if (isAfterEqual)
+            {
+                secondOperand = checksomething; 
+            }
+            //string secondOperand = lblDisplay.Text;
+            string result = engine.calculate(operate, firstOperand, secondOperand);
             if (result is "E" || result.Length > 8)
             {
                 lblDisplay.Text = "Error";
@@ -166,6 +213,10 @@ namespace CPE200Lab1
                 lblDisplay.Text = result;
             }
             isAfterEqual = true;
+            firstOperand = result;
+
+
+
         }
 
         private void btnDot_Click(object sender, EventArgs e)
@@ -195,10 +246,7 @@ namespace CPE200Lab1
             {
                 return;
             }
-            if (isAfterEqual)
-            {
-                resetAll();
-            }
+          
             // already contain negative sign
             if (lblDisplay.Text.Length is 8)
             {
@@ -251,6 +299,26 @@ namespace CPE200Lab1
         private void lblDisplay_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text is "Error")
+            {
+                return;
+            }
+            string sqtop = lblDisplay.Text;
+            double sqrresult = Math.Sqrt(Convert.ToDouble(sqtop));
+            //string result = engine.calculate(operate, firstOperand, secondOperand);
+           /* if (sqrresult is "E" || sqrresult.Length > 8)
+            {
+                lblDisplay.Text = "Error";
+            }
+            else*/
+            {
+                lblDisplay.Text = sqrresult.ToString();
+            }
+            isAfterEqual = true;
         }
     }
 }
