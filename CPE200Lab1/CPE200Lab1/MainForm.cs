@@ -334,13 +334,16 @@ namespace CPE200Lab1
             }
             string sqtop = lblDisplay.Text;
             double sqrresult = Math.Sqrt(Convert.ToDouble(sqtop));
+            //int b1 = (Convert.ToInt32(lblDisplay.Text));
+            //string txt = b1.ToString();
+            //sqrresult = Math.Round(sqrresult, 8 - txt.Length);
             //string result = engine.calculate(operate, firstOperand, secondOperand);
             /* if (sqrresult is "E" || sqrresult.Length > 8)
              {
                  lblDisplay.Text = "Error";
              }
              else*/
-            string sqrstr = sqrresult.ToString();
+            //string sqrstr = sqrresult.ToString();
 
 
             
