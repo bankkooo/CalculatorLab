@@ -54,7 +54,7 @@
             this.MS = new System.Windows.Forms.Button();
             this.Mplus = new System.Windows.Forms.Button();
             this.Mlop = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.x1 = new System.Windows.Forms.Button();
             this.btnsqr = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -346,15 +346,16 @@
             this.Mlop.UseVisualStyleBackColor = true;
             this.Mlop.Click += new System.EventHandler(this.Mbtn);
             // 
-            // button6
+            // x1
             // 
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button6.Location = new System.Drawing.Point(491, 148);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(140, 64);
-            this.button6.TabIndex = 26;
-            this.button6.Text = "1/x";
-            this.button6.UseVisualStyleBackColor = true;
+            this.x1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.x1.Location = new System.Drawing.Point(491, 148);
+            this.x1.Name = "x1";
+            this.x1.Size = new System.Drawing.Size(140, 64);
+            this.x1.TabIndex = 26;
+            this.x1.Text = "1/x";
+            this.x1.UseVisualStyleBackColor = true;
+            this.x1.Click += new System.EventHandler(this.button6_Click);
             // 
             // btnsqr
             // 
@@ -373,7 +374,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(643, 508);
             this.Controls.Add(this.btnsqr);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.x1);
             this.Controls.Add(this.Mlop);
             this.Controls.Add(this.Mplus);
             this.Controls.Add(this.MS);
@@ -434,7 +435,7 @@
         private System.Windows.Forms.Button MS;
         private System.Windows.Forms.Button Mplus;
         private System.Windows.Forms.Button Mlop;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button x1;
         private System.Windows.Forms.Button btnsqr;
     }
 }

@@ -21,9 +21,10 @@ namespace CPE200Lab1
         private string checksomething;
         private double memo = 0;
         private string mem = "";
-        private bool idAfterpush;
+        private bool isAfterpush;
+        string xdev;
         //private string Nbtn;
-       
+
 
         private CalculatorEngine engine;
 
@@ -136,7 +137,12 @@ namespace CPE200Lab1
         {
             string secondOperand = lblDisplay.Text;
             string op = ((Button)sender).Text;
-            if(op=="%") secondOperand = ((Convert.ToDouble(firstOperand)/100) * Convert.ToDouble(secondOperand)).ToString();
+            if (op == "%")
+            {   
+                secondOperand = ((Convert.ToDouble(firstOperand) / 100) * Convert.ToDouble(secondOperand)).ToString();
+                lblDisplay.Text = secondOperand;
+                return;
+            }
             //string secondOperand = lblDisplay.Text;
             if (lblDisplay.Text is "Error")
             {
@@ -146,7 +152,7 @@ namespace CPE200Lab1
             {
                 secondOperand = checksomething;
             }
-            if (secondOperand != "0")
+            if (isAfterpush)
             {
                 if (lblDisplay.Text is "Error")
                 {
@@ -169,7 +175,23 @@ namespace CPE200Lab1
             }
             if (isAfterOperater)
             {
-
+               /* if (lblDisplay.Text is "Error")
+                {
+                    return;
+                }
+                //string secondOperand = lblDisplay.Text;
+                string result = engine.calculate(operate, firstOperand, secondOperand);
+                if (result is "E" || result.Length > 8)
+                {
+                    lblDisplay.Text = "Error";
+                }
+                else
+                {
+                    lblDisplay.Text = result;
+                }
+                isAfterEqual = true;
+                // secondOperand = "0";
+                firstOperand = result;*/
                 return;
             }
             operate = ((Button)sender).Text;
@@ -181,10 +203,12 @@ namespace CPE200Lab1
                 case "÷":
                     firstOperand = lblDisplay.Text;
                     isAfterOperater = true;
+                    isAfterpush = true;
                     break;
                 case "%":
                     firstOperand = lblDisplay.Text;
                     isAfterOperater = true;
+                    isAfterpush = true;
                     // your code here
                     break;
             }
@@ -264,6 +288,7 @@ namespace CPE200Lab1
         private void btnClear_Click(object sender, EventArgs e)
         {
             resetAll();
+            isAfterpush = false;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -310,14 +335,47 @@ namespace CPE200Lab1
             string sqtop = lblDisplay.Text;
             double sqrresult = Math.Sqrt(Convert.ToDouble(sqtop));
             //string result = engine.calculate(operate, firstOperand, secondOperand);
-           /* if (sqrresult is "E" || sqrresult.Length > 8)
-            {
-                lblDisplay.Text = "Error";
-            }
-            else*/
-            {
+            /* if (sqrresult is "E" || sqrresult.Length > 8)
+             {
+                 lblDisplay.Text = "Error";
+             }
+             else*/
+            string sqrstr = sqrresult.ToString();
+
+
+            
                 lblDisplay.Text = sqrresult.ToString();
+            
+            isAfterEqual = true;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text is "Error")
+            {
+                return;
             }
+            string x1op = lblDisplay.Text;
+            //double x1result = Math.Sqrt(Convert.ToDouble(x1op));
+            double x1result =( 1 / (Convert.ToDouble(x1op)));
+            //string result = engine.calculate(operate, firstOperand, secondOperand);
+            /*if ((x1result.ToString()).Length > 8)
+             {
+                 lblDisplay.Text = "Error";
+             }
+             else*/
+            string x2str = x1result.ToString();
+            if (x2str.Length > 8)
+            {
+                //int x = x2str.Length;
+                xdev = x2str.Remove(8);
+            }
+            //x1result = Convert.ToDouble(xdevide);
+            //{
+            //lblDisplay.Text = x1result.ToString();
+            lblDisplay.Text = xdev;
+           
+            //}
             isAfterEqual = true;
         }
     }
