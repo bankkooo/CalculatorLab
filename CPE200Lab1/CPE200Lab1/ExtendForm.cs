@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CPE200Lab1
-{
+{   
+
     public partial class ExtendForm : Form
     {
         private bool isNumberPart = false;
         private bool isContainDot = false;
         private bool isSpaceAllowed = false;
-        private CalculatorEngine engine;
+        private RPNCalculatorEngins engine;
 
         public ExtendForm()
         {
             InitializeComponent();
-            engine = new CalculatorEngine();
+            engine = new RPNCalculatorEngins();
         }
 
         private bool isOperator(char ch)
@@ -65,7 +66,7 @@ namespace CPE200Lab1
             string current = lblDisplay.Text;
             if (current[current.Length - 1] != ' ')
             {
-                lblDisplay.Text += " " + ((Button)sender).Text + " ";
+                lblDisplay.Text += " " + ((Button)sender).Text ;
                 isSpaceAllowed = false;
             }
         }
@@ -155,6 +156,8 @@ namespace CPE200Lab1
 
         private void btnSpace_Click(object sender, EventArgs e)
         {
+            isContainDot = false;
+
             if(lblDisplay.Text is "Error")
             {
                 return;
