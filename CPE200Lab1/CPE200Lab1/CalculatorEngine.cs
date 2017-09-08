@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,17 +28,39 @@ namespace CPE200Lab1
         }
         public string Process(string str)
         {
-            string[] parts = str.Split(' ');
-            if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
-            {
-                return "E";
-            } else
-            {
-                return calculate(parts[1], parts[0], parts[2], 4);
-            }
+            /* string[] parts = str.Split(' ');
+             if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
+             {
+                 return "E";
+             } else
+             {
+                 return calculate(parts[1], parts[0], parts[2], 4);
+             }*/
+            
+                string result = "Zero.";
+                Stack NumList = new Stack();
+                string[] parts = str.Split(' ');
+                if (parts[(parts.Length) - 1] == "") return "E";
+                for (int i = parts.Length - 1; i >= 0; i--)
+                {
+                    if (isNumber(parts[i]))
+                    {
+                        NumList.Push(parts[i]);
+                    }
+                }
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    if (isOperator(parts[i]))
+                    {
+                        result = calculate(parts[i], NumList.Pop().ToString(), NumList.Pop().ToString());
+                        NumList.Push(result);
+                    }
+                }
+                return NumList.Pop().ToString();
 
-        }
-        public string unaryCalculate(string operate, string operand, int maxOutputSize = 8)
+
+            }
+            public string unaryCalculate(string operate, string operand, int maxOutputSize = 8)
         {
             switch (operate)
             {
